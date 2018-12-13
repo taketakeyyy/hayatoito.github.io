@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blogger Beta に移行 — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="Blogger Beta に移行 — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      Blogger Beta に移行
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2006-10-30">
+        2006-10-30
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p>Blogger Beta に移行してみました。大きな変更点としては</p>
+<ul>
+<li>Label が使えるようになった</li>
+<li>テンプレート・システムがまったく新しくなっている</li>
+<li>ページを動的に作成するようになったので、テンプレートを変更するとすぐにページに反映される</li>
+</ul>
+<p>といったところでしょうか？</p>
+<h1 id="a"><a class="self-link" href="#a">テンプレート・システム</a></h1>
+<p>新しいテンプレート・システムのうりのひとつは、ブラウザ上で GUI でデザインできることです。必ず GUI を使う必要はなく、全部自分で手作業で設定することももちろん可能でした。いい機会ですので、新規にテンプレート・CSS を作成してみました。テンプレートのタグも新規タグが用意されています。これまでより細部で機能アップしてますね。ほとんど全ての箇所をいじることができる自由度は相変わらず健在ですので、特にデザイン上支障はありません。 GUI デザイン用に使用されるテンプレート内の変数部分は、わずらわしいので全部消去しました。</p>
+<h1 id="a-1"><a class="self-link" href="#a-1">スタイルシートの動的切り替え</a></h1>
+<p>「Printer Friendly View」 は
+<a href="http://alistapart.com/stories/alternate/">Alternative Style: Working With Alternate Style Sheets</a>
+を参考にしてみました。 スタイルシートを動的に切り替えることができます。</p>
+<h1 id="google-data-apis"><a class="self-link" href="#google-data-apis">Google Data APIs</a></h1>
+<p>ブラウザから記事を投稿する人には関係のない話ですが、 私の場合は、記事は
+<a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> 形式でローカルで書いてから、自作の Python スクリプトで記事を投稿できるようにしています。 Blogger
+では、そのために ATOM API が用意されています。こちらも Beta では変更が入り、
+<a href="http://code.google.com/apis/gdata/">Google Data APIs</a> を用いるようになりました。</p>
+<p>主な変更点としては、</p>
+<ul>
+<li>ATOM API のバージョンが 0.3 から 1.0 に変更</li>
+<li>認証システムも、Basic 認証から、
+<a href="http://code.google.com/apis/accounts/Authentication.html">Google Account Authentication</a>
+に変更</li>
+</ul>
+<p>といったところです。
+<a href="http://code.google.com/apis/gdata/blogger.html">Blogger Data API</a> として使用方法が解説してありますので、ここを見れば簡単です。</p>
+<p>Java や C#用のクライアント・ライブラリも用意されていましたが、 reStructutedText
+の変換を考えるとやはり Python のほうがよいと思い、 Python でクライアントを書きました。 ATOM を使用するにあたり、いくつかすんなりとはいかなかった点としては、</p>
+<ol>
+<li>指定された Post 先に Post 要求を出すと、Beta のサーバはリダイレクトを返してきます。</li>
+<li>投稿に成功した場合、ステータスコード 201 を返してきます。</li>
+</ol>
+<p>この 2 点です。 Python の標準の API(urllib/urllib2)では、Post 要求に対してリダイレクトが返って来ると、リダイレクト先へ Post を再送するのではなく Get 要求を出してしまいます。また、ステータスコード 201 もエラー扱いするようになっていました。そのため、自分で <code>urllib2.HTTPRedirectHandler</code> をもとにした、ちょっとしたハックが必要になります。</p>
+<p>その他に気づいた問題点は、新規記事を ATOM 1.0 で送る時、&lt;published&gt;での日付指定が無視されてしまうことです。これは、現在サーバ側の問題らしく、
+<a href="http://groups.google.com/group/bloggerDev/">Blogger Dev Group</a> で議論されていますのでいずれ解決しそうです。</p>
+<p>これでほぼ移行作業が完了しましたが、全体としては Beta の方がはるかに使いやすくなりましたね。なによりラベルが使えるようになったのがいちばんうれしいですね。</p>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

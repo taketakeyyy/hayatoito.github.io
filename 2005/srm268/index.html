@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM268 - Division2脱出 — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM268 - Division2脱出 — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM268 - Division2脱出
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2005-10-19">
+        2005-10-19
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=8001">SRM268</a> に挑戦．Division2 の問題です．</p>
+<h1 id="crosswordpuzzle-code"><a class="self-link" href="#crosswordpuzzle-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5867&amp;rd=8001">CrossWordPuzzle</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=246654&amp;rd=8001&amp;pm=5867&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題． 1 文字・1 文字，順にチェックしている人が多かったようですが，正規表現を使用した文字列分割 (いわゆる split(..)) が利用できる言語なら，それを使えば簡単です．今回は正規表現を使用するほどでもないですが，正規表現を使用すれば，ずっと簡単になる問題も TopCoder ではときどき出題されるようです．</p>
+<h1 id="cmpdwords-code"><a class="self-link" href="#cmpdwords-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=3490&amp;rd=8001">CmpdWords</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=246654&amp;rd=8001&amp;pm=3490&amp;cr=15632820">code</a>)</a></h1>
+<p>500 点問題．一見，問題がわかりにくいですが，ハッシュテーブルを使用して，合成文字列の重複のカウントをすれば，これも簡単です．</p>
+<h1 id="triarea"><a class="self-link" href="#triarea"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4699&amp;rd=8001">TriArea</a></a></h1>
+<p>1000 点問題．重なり合う 2 等辺三角形が複数与えられます．それらがカバーする面積をもとめる問題です. 3 角形の重なりを判定して全体の面積を求めようととしたのですが，
+1 時間以上，格闘したあげく，時間切れでした．</p>
+<p>パラメータの条件として</p>
+<blockquote>
+<p>Each element of xCenter and yCenter will be between -100 and 100, inclusive.</p>
+</blockquote>
+<p>とあるので，全 2 次元空間をひたすら調べたほうが簡単でした. 1 x 1 のグリッドをさらに 4 つのエリアにわけて，そのエリアが三角形に含まれているなら</p>
+<blockquote>
+<p>(面積) += 0.25</p>
+</blockquote>
+<p>とすればよいです．</p>
+<pre><code class="language-java prettyprint">public class TriArea {
+
+  public double area(int[] xCenter,
+                     int[] yCenter, int[] height) {
+    double res = 0;
+    int N = xCenter.length;
+    int[] dx = {1, 2, 2, 3};
+    int[] dy = {2, 1, 3, 2};
+    for (int x = -200; x &lt; 200; x++) {
+      for (int y = -100; y &lt; 200; y++) {
+        for (int d = 0; d &lt; 4; d++) {
+          double nx = x + dx[d] / 4.0;
+          double ny = y + dy[d] / 4.0;
+          for (int i = 0; i &lt; N; i++) {
+            if (ny &lt; yCenter[i]) continue;
+            if ( height[i] &gt; Math.abs(xCenter[i] - nx)
+                  + (ny - yCenter[i])) {
+              res += 0.25;
+              break;
+            }
+          }
+        }
+      }
+    }
+    return res;
+  }
+}
+</code></pre>
+<p>これでも，Order は 400 x 400 x 4 x 25(3 角形の最大数) ですから，これで十分いけましたね．．</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=8001&amp;rm=246654">Room Statistics</a>
+)</p>
+<p><img src="http://static.flickr.com/43/74682258_bc8a562129_o.png" alt="Room Statistics" /></p>
+<p>1000 点問題ができなかったのが悔やまれますが,250 点問題と 500 点問題は早めに
+Submit できたためか，ルーム内では Top のポイントでした． レーティングは 1152
+-&gt; 1303 と 1200 を超えたので，Division2 脱出です．</p>
+<h1 id="a-1"><a class="self-link" href="#a-1">今日の教訓</a></h1>
+<ul>
+<li>入力条件をよくチェックする．入力条件によっては，エレガントに解く必要はない．全部調べても大丈夫な場合がある．特に Division2 は．</li>
+</ul>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

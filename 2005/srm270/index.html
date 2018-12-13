@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM270 - Integer == Integer — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM270 - Integer == Integer — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM270 - Integer == Integer
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2005-11-04">
+        2005-11-04
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=8067">SRM270</a> に挑戦．Division1 に挑戦するのはこれが 3 回目ですが，前の 2 回は，</p>
+<ul>
+<li>Level1 問題 - どちらも Submit するも，単純なミスで System Test に落ちる.</li>
+<li>Level2 問題 - どちらも時間切れ．</li>
+<li>Level3 問題 - Open したことさえありません．．</li>
+</ul>
+<p>とまだ 1 問も System Test に通ったことがありません．今度こそは 1 問は通るように．．</p>
+<h1 id="countriesranklist-code"><a class="self-link" href="#countriesranklist-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4658&amp;rd=8067">CountriesRanklist</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=246708&amp;rd=8067&amp;pm=4658&amp;cr=15632820">code</a>)</a></h1>
+<p>300 点問題． Code は提出．今度こそ大丈夫と思っていたもの，また System Test で落ちてしまいました．どこがおかしいんだろと Code を見ていて，5 分ほど．ようやく間違いを発見しました．ここです</p>
+<pre><code class="language-java prettyprint">if (l.get(i) == maxscore.get(key))
+</code></pre>
+<p>Integer と Integer を == で比較しています．．．あーやってしまった． J2SE5 から
+autoboxing/unboxing が使えるようになりましたが，すっかりそれに頼りきっていました．このように左辺 と 右辺 ともに Integer の場合は，だめですね．．equals(..) じゃないと． どちらかが int ならよかったんだけど．また単純ミスだ．．</p>
+<h1 id="salesmandilemma"><a class="self-link" href="#salesmandilemma"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4755&amp;rd=8067">SalesmanDilemma</a></a></h1>
+<p>600 点問題． 巡回セールスマン問題．．ではありません．基本的には最短経路を求める問題に落ち着くのですが，やっかいな点としてネガティブ・ループの考慮をする必要があります． SRM 中は，時間切れで Submit できませんでした．もう少しだったんですけど．</p>
+<p>SRM 後に，完成させたコードです．タイムオーバーになるかと思ったのですが，今回の条件ではこれでも十分 2 秒以内でした．</p>
+<pre><code class="language-java prettyprint">import java.util.Scanner;
+public class SalesmansDilemma {
+
+int[][] p;
+int[] visited;
+int destination;
+
+final int NA = Integer.MIN_VALUE;
+final int ENDLESS = Integer.MAX_VALUE;
+final int IMPOSSIBLE = Integer.MIN_VALUE;
+
+int goal = IMPOSSIBLE;
+
+public String bestRoute(int towns, int origin, int destination,
+        String[] travelCosts, int[] profits) {
+    this.destination = destination;
+    p = new int[towns][towns];
+    for (int i = 0; i &lt; towns; i++) Arrays.fill(p[i], NA);
+    for (int i = 0; i &lt; travelCosts.length; i++) {
+        Scanner s = new Scanner(travelCosts[i]);
+        int from = s.nextInt();
+        int to = s.nextInt();
+        int cost = s.nextInt();
+        p[from][to] = Math.max(p[from][to], profits[to] - cost);
+    }
+
+    visited = new int[towns];
+    Arrays.fill(visited, IMPOSSIBLE);
+    visited[origin] = 0;
+    go(origin);
+
+    if (goal == IMPOSSIBLE) return &quot;IMPOSSIBLE&quot;;
+    if (goal == ENDLESS) return &quot;ENDLESS PROFIT&quot;;
+    return &quot;BEST PROFIT: &quot; + (goal + profits[origin]);
+}
+
+void go(int town) {
+    if (town == destination) goal = Math.max(goal, visited[town]);
+
+    for (int i = 0; i &lt; p[town].length; i++) {
+        if (p[town][i] == NA) continue;
+
+        int old = visited[i];
+        int update = (visited[town] == ENDLESS) ?
+                     ENDLESS : visited[town] + p[town][i];
+
+        if (old == IMPOSSIBLE) {
+            visited[i] = update;
+            go(i);
+            visited[i] = old;
+        } else if (update &gt; old) {
+            visited[i] = ENDLESS;
+            go(i);
+            visited[i] = old;
+        }
+    }
+}
+</code></pre>
+<p>この手の問題では，Bellman-Ford アルゴリズムを用いるのが定石のようです．ある地点からある地点までの，最短経路，およびネガティブ・ループを発見するアルゴリズムです．練習がてら，Java で実装してみました．</p>
+<pre><code class="language-java prettyprint">import java.util.Scanner;
+public class SalesmansDilemma {
+
+class Edge {
+    int source;
+    int destination;
+    int weight;
+}
+
+public String bestRoute(int towns, int origin, int destination,
+        String[] travelCosts, int[] profits) {
+    Edge[] edges  = new Edge[travelCosts.length];
+    for (int i = 0; i &lt; travelCosts.length; i++) {
+        Scanner scan  = new Scanner(travelCosts[i]);
+        edges[i] = new Edge();
+        edges[i].source = scan.nextInt();
+        edges[i].destination = scan.nextInt();
+        edges[i].weight = scan.nextInt()
+                         - profits[edges[i].destination];
+    }
+    long[] verticles = new long[towns];
+    long INFINITY = Long.MAX_VALUE;
+    for (int i = 0; i &lt; verticles.length; i++) {
+        verticles[i] = INFINITY;
+    }
+    verticles[origin] = 0;
+
+    boolean[] negative = new boolean[towns];
+
+    // relax and find negative cycle
+    for (int i = 0; i &lt; verticles.length + 1; i++) {
+        for (Edge e : edges) {
+            int u = e.source;
+            int v = e.destination;
+            if (verticles[u] == INFINITY) continue;
+            if (verticles[v] &gt; verticles[u] + e.weight) {
+                verticles[v] = verticles[u] + e.weight;
+                if (i == verticles.length) {
+                    negative[v] = true;
+                }
+            }
+        }
+    }
+
+    if (verticles[destination] == INFINITY) return &quot;IMPOSSIBLE&quot;;
+
+    boolean[] mark = new boolean[towns];
+    for (int i = 0; i &lt; towns; i++) {
+        if (negative[i] &amp;&amp; !mark[i]) {
+            go(i, mark, edges);
+        }
+    }
+    if (mark[destination]) return &quot;ENDLESS PROFIT&quot;;
+
+    return &quot;BEST PROFIT: &quot; +
+           -(verticles[destination] - profits[origin]);
+}
+
+void go(int v, boolean[] mark, Edge[] edges) {
+    mark[v] = true;
+    for (Edge e : edges) {
+        if (v == e.source &amp;&amp; !mark[e.destination]) {
+            go(e.destination, mark, edges);
+        }
+    }
+}
+}
+</code></pre>
+<h1 id="packingshapes"><a class="self-link" href="#packingshapes"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4751&amp;rd=8067">PackingShapes</a></a></h1>
+<p>900 点問題． SRM 中は Open しませんでした．ある長方形のなかに，別の長方形をはみださないようにいれることができるか判定する問題です．たとえば，幅 100 x 高さ 100
+の長方形には，幅 140 x 高さ 1 の長方形は（傾ければ）いれることができます． 幅
+140 x 50 の長方形はどんなにがんばってもはいりません．</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=8067&amp;rm=246708">Room Statistics</a>
+)</p>
+<p><img src="http://static.flickr.com/37/74682670_24668897a1_o.png" alt="Room Statistics" /></p>
+<p>レーティングは 1303 -&gt; 1214 と低下．かろうじて Division1 には残っています.</p>
+<h1 id="a-1"><a class="self-link" href="#a-1">今日の教訓</a></h1>
+<ul>
+<li>Primitive とラッパー．．Java を使い続ける限りつきまとう，もっとも頭のいたい問題です． autoboxing/unboxing には惑わされないように．</li>
+</ul>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM281 - 2006 年はポイントゼロスタート — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM281 - 2006 年はポイントゼロスタート — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM281 - 2006 年はポイントゼロスタート
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2006-01-07">
+        2006-01-07
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=8078">SRM281</a> に挑戦．今年，最初の SRM です．例のごとく日本時間の深夜 1:00 スタートという，ありがたいんだが，ありがたくないんだがよくわかりませんが，やはり眠いなかでの参戦となりました．まあ，平日昼間だと参加できないので，ありがたいんでしょうが．．</p>
+<h1 id="integergenerator-code"><a class="self-link" href="#integergenerator-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5984&amp;rd=8078">IntegerGenerator</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=247299&amp;rd=8078&amp;pm=5984&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題．</p>
+<ul>
+<li>int[] allowed: 使用が許されている数字(0-9 のいずれか)のリスト</li>
+<li>String current: 現在の数 (整数)</li>
+</ul>
+<p>が与えられます．この時，</p>
+<ol>
+<li>与えられた数 current の各桁が許可数字だけを使用しているかどうかをチェック</li>
+<li>1 が OK なら，許可数字だけを使用して current より大きい次の数字を生成して返しなさい</li>
+</ol>
+<p>という問題です． たとえば，</p>
+<ul>
+<li>allowed: {1, 2, 3}</li>
+<li>current: &quot;2133&quot;</li>
+</ul>
+<p>ならば，current: 2133 の各桁は，許可数字{1, 2, 3}に含まれているものだけを使用しているので OK です．また，current より大きい，許可数字だけを使用した次の数は，&quot;2211&quot; になります．</p>
+<p>最初は，ただ単に current を 1 ずつ increment して OK かどうかチェックするという単純な方法で十分と思い込み，8 分ほどで Submit しました． Submit 後に，いくつかチェックしていると，入力条件によってはこれではタイムアウトすることに気づきました．入力が</p>
+<blockquote>
+<p>{9}, &quot;9999999999&quot; (10 桁)</p>
+</blockquote>
+<p>でタイムアウトです． この場合の正解は&quot;99999999999&quot; (11 桁) ですが，1 ずつ
+increment していては，とてもじゃないが 2 秒以内には終わりません．</p>
+<p>慌ててやり直しましたが．．．はまりました．．完全に方針を誤り右往左往でした．最終的になんとか完成させ再提出したのですが (提出時点ではポイント 75 と最低点でした
+...），それでもバグがひとつ入っていたため，System Test に落ちました．入力の int
+配列: allowed が空のケースで，ArrayIndexOutOfException が発生させてしまっています．</p>
+<p>初歩的な入力条件のチェックミス．．空かどうかチェックを一行いれておけば，SystemTest に通っていましたね．</p>
+<p>SRM 後に，冷静になって，コードを書き直してみました．使用できる数字が限られたケースで，1 を足す動作を，シミュレートするだけです．</p>
+<pre><code class="language-java prettyprint">public class IntegerGenerator {
+  public String nextInteger(int[] allowed, String current) {
+      Arrays.sort(allowed);
+      char[] ca = current.toCharArray();
+      if (ca[0] == '0') return &quot;INVALID INPUT&quot;;
+      for (char c : ca) {
+          if (Arrays.binarySearch(allowed, c - '0') &lt; 0) return &quot;INVALID INPUT&quot;;
+      }
+      for (int i = ca.length - 1; i &gt;= 0; i--) {
+          int index = Arrays.binarySearch(allowed, ca[i] - '0');
+          if (index == allowed.length - 1) {
+              ca[i] = (char) ('0' + allowed[0]);
+          } else {
+              ca[i] = (char) ('0' + allowed[index + 1]);
+              return new String(ca);
+          }
+      }
+      return ((allowed[0] == 0) ? allowed[1]: allowed[0]) + new String(ca);
+  }
+}
+</code></pre>
+<p>こうしてみるとそんなに難しい問題ではなかったですね．やっぱり 250 点問題です．本番中は，頭が回りませんでした．．．</p>
+<h1 id="ballbouncing"><a class="self-link" href="#ballbouncing"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5919&amp;rd=8078">BallBouncing</a></a></h1>
+<p>600 点問題．Open しませんでした．</p>
+<h1 id="equidistance"><a class="self-link" href="#equidistance"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5949&amp;rd=8078">Equidistance</a></a></h1>
+<p>1000 点問題．Open しませんでした．</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=8078&amp;rm=247299">Room Statistics</a>
+)</p>
+<p><img src="http://static.flickr.com/39/83328489_144104161d_o.png" alt="Room Statistics" /></p>
+<p>今日は，惨敗です．チャレンジタイムも，ターゲットが次々とほかの人にさらわれてしまい，結局，チャレンジゼロでした．．</p>
+<p>レーティングは 1630 -&gt; 1542 と，100 近く低下しました．</p>
+<h1 id="a-1"><a class="self-link" href="#a-1">今日の教訓</a></h1>
+<ul>
+<li>当たり前ですが，入力条件をよく読むように．</li>
+</ul>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

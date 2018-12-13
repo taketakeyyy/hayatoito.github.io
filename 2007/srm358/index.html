@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM358 - Today is a Bad Day (-50). — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM358 - Today is a Bad Day (-50). — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM358 - Today is a Bad Day (-50).
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2007-07-17">
+        2007-07-17
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=10768">SRM358</a> に挑戦。</p>
+<h1 id="brokenbuttons-code"><a class="self-link" href="#brokenbuttons-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=7716&amp;rd=10768">BrokenButtons</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=265496&amp;rd=10768&amp;pm=7716&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題。いかにケアレスミスをしないか?を問われる問題。で、見事にミスをしてしまいました。しかも、2 つも。 5 分の休憩時間中に、自分の誤りに気がついたんですけど、ときすでに遅し。なぜか、自分は、250 点問題のミスに、休憩時間中に気付くパターンが多いような。他人へのチャレンジ・ケースを考えているうちに、自分のミスに気付かされるといういつものパターン。</p>
+<h1 id="balancescale"><a class="self-link" href="#balancescale"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=7845&amp;rd=10768">BalanceScale</a></a></h1>
+<p>500 点問題。苦手な整数問題。最大サイズが 50 なので、探索できっこないと思い込む。なにかクレバーなアイデアがあるはずと思いつつ、しかし、時間内に思いつく自信がなかったため、早めにパスして、1000 点問題へ。</p>
+<h1 id="sharksdinner-code"><a class="self-link" href="#sharksdinner-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=7834&amp;rd=10768">SharksDinner</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=265496&amp;rd=10768&amp;pm=7834&amp;cr=15632820">code</a>)</a></h1>
+<p>1000 点問題．500 点問題よりは取り組みやすそうに思えたので、今回は、ずっとこれに取り組んでいました。まったく同じ鮫をのぞいてしまえば、グラフは DAG(directed
+acyclic graph)になるので、まったく同じ鮫をどのように扱うか考えていました。結局提出まで至らず時間切れ。後で、コードを振り返ってみると、全体としての方針は間違っていなかったんですけど(DAG にしてマッチング問題に帰着)、前半部分で、「同じ鮫をひとつにまとめてしまっても大丈夫なはずだ」という、致命的な勘違いをしていました。なぜ、そう思ったのだろう。。。</p>
+<p>ほとんどのひとは、MaxFlow で解いていますね。なるほど。</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=10768">Room Statistics</a>
+)</p>
+<p>チャレンジも 2 つ失敗して、結局スコア-50 で終わるという過去最低の結果に。レーティングも 2040-&gt;1856 とものの見事な低下っぷり。この悔しさが、次回へのモチベーションにつながるんですけどね。</p>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

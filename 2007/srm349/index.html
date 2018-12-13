@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM349 FizzBuzz 問題が簡単すぎるそんなあなたへ。「赤いマーブル問題」。 — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM349 FizzBuzz 問題が簡単すぎるそんなあなたへ。「赤いマーブル問題」。 — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM349 FizzBuzz 問題が簡単すぎるそんなあなたへ。「赤いマーブル問題」。
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2007-05-18">
+        2007-05-18
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;er=5&amp;rd=10673">SRM349</a> に挑戦。</p>
+<p>今回は、1000 点問題が、なかなかいい問題でした。 Division1 の人達の多くを見事にひっかけた良問です。超絶アルゴリズムが必要なわけではなく、最初にちょっとしたアイデアに気付くかどうかで、十分に解ける問題と化すという、素晴らしい問題だなと。</p>
+<p>世間では FizzBuzz 問題がはやっていたようですが、それに飽きたという方は、この
+1000 点問題 「
+<a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=6067&amp;rd=10673">赤いマーブル問題</a>
+」に挑戦してみてください。</p>
+<blockquote>
+<p>中が見えないバッグに、赤いマーブルが red 個、青いマーブルが blue 個、入ってい
+ます。あなた(A 君)と相手(B 君)は、交互に、バッグから 1 個、あるいは 2 個、ある
+いは 3 個のマーブルをまとめて取り出します。取り出したマーブルの色は自分だけで
+なく相手にも教えてあげます。このように交互にマーブルを 1 個から 3 個ずつ取り出
+していき、バッグに入っている最後の(ラスト一個の)赤いマーブルを取り出した人が負
+けになります。</p>
+<p>それでは、ゲームスタートです。といいたいところですが、ここで第 3 者(C 君)が現
+れて、ゲームをはじめる前に、バッグからマーブルを、ランダムに removed 個、取り
+出してしまいました。 A 君も B 君も、取り出された removed 個のマーブルがそれぞ
+れ何色だったかは教えてもらえませんでした。</p>
+<p>この状態からゲームはスタートします。すなわち、A 君と B 君は、もともとの赤いマ
+ーブル, 青いマーブルの個数と, C 君が取り出した個数は知っていますが、 現在のバ
+ッグについては、(red + blue - removed)個のマーブルが入っていることがわかってい
+るだけで、どの色がそれぞれ何個入っているかはわかっていません。</p>
+<p>ゲームスタート。最初に取り出しのはあなた(A 君)からです。お互いが最適な戦略をと
+る場合、あなたが勝つ確率はいくつになるでしょうか?</p>
+</blockquote>
+<p>という問題です。</p>
+<p>red, blue, removed は、以下の条件を満たすものとします。</p>
+<ul>
+<li>1&lt;= red &lt;= 100</li>
+<li>1&lt;= blue &lt;= 100</li>
+<li>removed &lt; red</li>
+</ul>
+<p>つまり、ゲーム開始時は、少なくとも 1 個、赤いマーブルがバッグに残っています。</p>
+<p>では、どうぞ!</p>
+<pre><code class="language-java prettyprint">public double winningChance(int red, int blue, int removed) {
+    ...
+}
+</code></pre>
+<p>ちなみに</p>
+<ul>
+<li>red=1, blue=1, removed=0 の場合は、答えは、0.5</li>
+<li>red=1, blue=2, removed=0 の場合は、答えは、0.33333333333333...</li>
+<li>red=2, blue=1, removed=1 の場合は、答えは、0.5</li>
+<li>red=100, blue=1, removed=99 の場合は、答えは、0.9900990099009901...</li>
+<li>red=100, blue=100, removed=50 の場合は、答えは、0.5379240275007613...</li>
+</ul>
+<p>になります。正しく解けたかどうかの検証用にどうぞ。</p>
+<p>ちなみに、トップのひとは、この問題を 23 分で解いています。。。</p>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

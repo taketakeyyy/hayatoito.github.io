@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM291 - OutOfMemory — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM291 - OutOfMemory — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM291 - OutOfMemory
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2006-02-23">
+        2006-02-23
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=9812">SRM291</a> に挑戦．</p>
+<p>2006 TopCoder Open - Algorithm Competition が来週の 2 月 28 日から始まります．今日は，それに向けて最後の SRM になります．</p>
+<h1 id="snowflakes-code"><a class="self-link" href="#snowflakes-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=6072&amp;rd=9812">Snowflakes</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=247699&amp;rd=9812&amp;pm=6072&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題． 折り紙で雪の結晶をつくりましょう．</p>
+<p><img src="http://www.topcoder.com/contest/problem/Snowflakes/snowflakefinal.gif" alt="SRM291 Snowflakes From TopCoder" /></p>
+<p>このように 8 等分に折った折り紙に対して，</p>
+<p><img src="http://www.topcoder.com/contest/problem/Snowflakes/snowflake5.gif" alt="SRM291 Snowflakes From TopCoder" /></p>
+<p>穴をあけてから，もとの大きさに広げると，あら不思議．雪の結晶のように，対称な，きれいな形ができますねー．あ，そう．って感じですが，，，</p>
+<p>問題は，以下のような，8 等分に折った折り紙の穴のパターンが与えられたとき，</p>
+<pre><code>{&quot;*&quot;,
+ &quot;..&quot;,
+ &quot;.*.&quot;,
+ &quot;.**.&quot;,
+ &quot;.*.**&quot;}
+</code></pre>
+<p>広げた形のパターンを求めてください．という問題です. 例の場合は，答えはこのようになります．</p>
+<pre><code>{&quot;**.*..*.**&quot;,
+ &quot;*.**..**.*&quot;,
+ &quot;.*.*..*.*.&quot;,
+ &quot;***....***&quot;,
+ &quot;....**....&quot;,
+ &quot;....**....&quot;,
+ &quot;***....***&quot;,
+ &quot;.*.*..*.*.&quot;,
+ &quot;*.**..**.*&quot;,
+ &quot;**.*..*.**&quot; }
+</code></pre>
+<p>悩むところは特にないですが，いかに時間をかけないでサクサクすませられるか勝負です．私は，14 分もかかってしまいましたが，早い人は，3 分かからずにすませています．．</p>
+<h1 id="crazyswitches-code"><a class="self-link" href="#crazyswitches-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=6071&amp;rd=9812">CrazySwitches</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=247699&amp;rd=9812&amp;pm=6071&amp;cr=15632820">code</a>)</a></h1>
+<p>500 点問題． 素直に BFS でいけました．</p>
+<h1 id="stickedwords"><a class="self-link" href="#stickedwords"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5954&amp;rd=9812">StickedWords</a></a></h1>
+<p>1000 点問題． Level1，Level2 問題を終えた時点で，30 分ほど時間がありましたので，1000 点問題にチャレンジ．</p>
+<p>単語(Word)がいくつか与えられます．</p>
+<blockquote>
+<p>{&quot;salad&quot;, &quot;sandwich&quot;, &quot;hamburger&quot;, &quot;rings&quot;}</p>
+</blockquote>
+<p>これらの単語の最初の文字と最後の文字をつなげて，文字列をつくっていきます．</p>
+<blockquote>
+<p>&quot;hamburgeringsandwichamburger...&quot;</p>
+</blockquote>
+<p>「しりとり」ですね．こうしてできる文字列のうち，長さが (len) 以上のもので，辞書的に一番最初にくる文字列を返しなさい．という問題です．たとえば，入力が</p>
+<pre><code>{&quot;abd&quot;, &quot;dgga&quot;, &quot;abdg&quot;, &quot;gga&quot;, &quot;gg&quot;, &quot;gaader&quot;}
+len: 22
+</code></pre>
+<p>ならば，</p>
+<blockquote>
+<p>&quot;abdggabdggabdggabdgaader&quot;</p>
+</blockquote>
+<p>が答えになります．</p>
+<p>ちょっと考え，「DP でいける！」と思い，コーディング開始. 1000 点問題をはじめて解けるか？！ と思ったのですが，時間が足りませんでした．． SRM 後，悔しいので完成させました．</p>
+<pre><code class="language-java prettyprint">public class StickedWords {
+
+  public String constructLine(String[] dict, int len) {
+
+      String[][] dp = new String[len+51][26];
+      for (int i = 1; i &lt; dp.length; i++) {
+          for (int j = 0; j &lt; 26; j++) {
+              for (String word : dict) {
+                  if (word.charAt(word.length()-1) - 'a' != j) continue;
+                  if (i == word.length()) {
+                      if (dp[i][j] == null || word.compareTo(dp[i][j]) &lt; 0) {
+                          dp[i][j] = word;
+                      }
+                      continue;
+                  }
+                  int pre = i - (word.length() - 1);
+                  if (pre &lt;= 0) continue;
+                  int first = word.charAt(0) - 'a';
+                  if (dp[pre][first] == null) continue;
+                  String next = dp[pre][first] + word.substring(1);
+                  if (dp[i][j] == null || next.compareTo(dp[i][j]) &lt; 0) {
+                      dp[i][j] = next;
+                  }
+              }
+          }
+      }
+      String res = null;
+      for (int i = len; i &lt; len+51; i++) {
+          for (int j = 0; j &lt; 26; j++) {
+              if (dp[i][j] == null) continue;
+              if (res == null || dp[i][j].compareTo(res) &lt; 0) {
+                  res = dp[i][j];
+              }
+          }
+      }
+      return (res == null) ? &quot;&quot; : res;
+  }
+}
+</code></pre>
+<p>もうちょっとだったのになーと思っていたけど，実は，ぜんぜんもうちょっとではありませんでした．落とし穴がまっていました．． 最悪のケース (len=2500)では,</p>
+<pre><code>java.lang.OutOfMemoryError...
+</code></pre>
+<p>を引き起こしてしまいます． TopCoder では時間（2 秒以内）という制限だけではなく，使用メモリの制限 (64Mbyte)もありました． 最悪のケース (len=2500)では，最終的にはメモリ使用量は，</p>
+<blockquote>
+<p>2500 x (2500 / 2) x 26 = 81250000</p>
+</blockquote>
+<p>ですから，80MByte を超えますね.．．これはトリッキーだ．．普通，気づかないよな．． 1000 点問題にしてはとっかかりやすいと思ったけど，こういう側面があったとは．．こういうのは，問題作成者が意図的にやってるんですね．</p>
+<p>ひとつあたりの単語の長さは最大 50 なので，DP をしつつ，最近の 50 ステップ分だけ，覚えるようにして，いらなくなったものには，null をいれると．</p>
+<pre><code class="language-java prettyprint">}
+if (i - 51 &gt;= 0) {
+    dp[i-51] = null;
+}
+</code></pre>
+<p>これで，なんとか System Test に通るようになります．</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=9812&amp;rm=247699">Room Statistics</a>
+)</p>
+<p><img src="http://static.flickr.com/27/103387512_dc267bf9ed_o.png" alt="Room Statistics" /></p>
+<p>レーティングは 1626 -&gt; 1730 と 100 ほど上昇しました．いよいよ来週は，2006
+TopCoder Open の予選です．</p>
+<h1 id="a-1"><a class="self-link" href="#a-1">今日の教訓</a></h1>
+<ul>
+<li>メモリ使用量に注意．</li>
+</ul>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

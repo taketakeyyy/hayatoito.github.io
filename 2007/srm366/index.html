@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM366 - typo 2 連発 — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM366 - typo 2 連発 — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM366 - typo 2 連発
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2007-09-18">
+        2007-09-18
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p>久しぶりの SRM。
+<a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=10781">SRM366</a> に挑戦。</p>
+<h1 id="changingsounds-code"><a class="self-link" href="#changingsounds-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=7973&amp;rd=10781">ChangingSounds</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=266307&amp;rd=10781&amp;pm=7973&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題。典型的 DP。</p>
+<h1 id="guitarconcert-code"><a class="self-link" href="#guitarconcert-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=7747&amp;rd=10781">GuitarConcert</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=266307&amp;rd=10781&amp;pm=7747&amp;cr=15632820">code</a>)</a></h1>
+<p>500 点問題。N=10 なので、2^N の Brute-force でいけます。結果を、lexicographically で優先順位をつけるところだけが注意点です。</p>
+<p>ですが、System Test に落ちました。えーと、ここの、</p>
+<pre><code class="language-java prettyprint">void sort(String[] a, String[] b) {
+    int N = a.length;
+    for (int i = 0; i &lt; N; i++) {
+        for (int j = N-2; j &gt;= i; j--) {
+            if (a[j+1].compareTo(a[i]) &lt; 0) {
+                swap(a, j, j+1);
+                swap(b, j, j+1);
+            }
+        }
+    }
+}
+</code></pre>
+<p>この行ですね。</p>
+<pre><code class="language-java prettyprint">if (a[j+1].compareTo(a[i]) &lt; 0) {
+</code></pre>
+<p>i ではなく j ですよー。気付きましょうよー &gt; 私。</p>
+<pre><code class="language-java prettyprint">if (a[j+1].compareTo(a[j]) &lt; 0) {
+</code></pre>
+<p>これで System Test に通りました。 typo のままで、Example Case に通ってしまったのが、運のつき。</p>
+<h1 id="lateforconcert-code"><a class="self-link" href="#lateforconcert-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=7827&amp;rd=10781">LateForConcert</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=266307&amp;rd=10781&amp;pm=7827&amp;cr=15632820">code</a>)</a></h1>
+<p>1000 点問題にもかかわらず特に悩むところはない珍しく簡単な問題。ですが、どうしても答えがあわない。。そのまま時間ぎれ。</p>
+<p>やはり、一箇所ミスってました。</p>
+<pre><code class="language-java prettyprint">double[][][] next = new double[R][C][4];
+fill(dp, INF);
+</code></pre>
+<p>dp ではなく next ですよー。気付きましょうよー &gt; 私。</p>
+<pre><code class="language-java prettyprint">double[][][] next = new double[R][C][4];
+fill(next, INF);
+</code></pre>
+<p>これで System Test に通りました。 typo というよりは、典型的なコピペ後の修正し忘れってやつですね。</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=10781&amp;rm=266307">Room Statistics</a>
+)</p>
+<p>今回は、3 問全部解くべき簡単な問題セットだったと思うんですけど。ミス 2 連発では、お話になりません。</p>
+<p>レーティングは、1856 &gt; 1760 とまとも低下。やむなし。。</p>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

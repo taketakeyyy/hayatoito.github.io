@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM298 - ひとふで書き — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM298 - ひとふで書き — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM298 - ひとふで書き
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2006-04-13">
+        2006-04-13
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=9819">SRM298</a> に挑戦．</p>
+<p>Division1 の問題です．</p>
+<h1 id="fibonaccipositioning-code"><a class="self-link" href="#fibonaccipositioning-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=6160&amp;rd=9819">FibonacciPositioning</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=248284&amp;rd=9819&amp;pm=6160&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題．フィボナッチ数列に関する問題ですが，なにも考えず実装して終わりです．</p>
+<h1 id="orderdoesmatter-code"><a class="self-link" href="#orderdoesmatter-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=6157&amp;rd=9819">OrderDoesMatter</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=248284&amp;rd=9819&amp;pm=6157&amp;cr=15632820">code</a>)</a></h1>
+<p>500 点問題． 行列が複数個あるとします．それぞれの行と列のサイズが与えられます．たとえば，以下の 3 個の行列が与えられたとします．</p>
+<blockquote>
+<p>A = 7 x 3, B = 3 x 7, C = 3 x 3</p>
+</blockquote>
+<p>これら行列を全て使用して掛け算を行い，最終的にできる行列の行と列をかけたものの最大値を求めなさい．という問題です. たとえば，このケースなら</p>
+<blockquote>
+<p>A * C * B = (7x3) * (3x3) * (3x7) = (7x7)</p>
+</blockquote>
+<p>で，49 が最大です．全て使用した掛け算ができない場合は，-1 を返します．たとえば</p>
+<blockquote>
+<p>A = 3 x 5, B = 5 x 2, C = 5 x 4</p>
+</blockquote>
+<p>だと，全て使用した掛け算ができないので，-1 が答えになります．</p>
+<p>．．．うーん，間違って解いてしまいました． bipertite matchig でいけると思ったのですけど，私のコードでは，</p>
+<blockquote>
+<p>A = 1 x 2, B = 2 x 1, C = 3 x 4, D = 4 x 3</p>
+</blockquote>
+<p>のようなケースでも，-1 を返しません．．根本的に間違っていました.</p>
+<p>これは，有向グラフを一筆書きできるかどうかって問題に落ち着くんですよね．グラフ理論的には， <a href="http://mathworld.wolfram.com/EulerPath.html">Euler Path</a> というそうです．</p>
+<h1 id="countingcommonsubsequences"><a class="self-link" href="#countingcommonsubsequences"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=6158&amp;rd=9819">CountingCommonSubsequences</a></a></h1>
+<p>1000 点問題． 長さが 50 以下の文字列が 3 つ与えられます．この 3 つの文字列に対して，共通するユニークな subsequence の数を求めなさい．という問題です.</p>
+<p>subsequence とは，文字列から任意個の文字を取り除いてできる残りの文字列です．</p>
+<p>たとえば，&quot;call&quot;，&quot;accelerate&quot;，&quot;candle&quot;ならば，答えは 6 です． &quot;c&quot;, &quot;a&quot;, &quot;l&quot;,
+&quot;al&quot;, &quot;ca&quot; ,&quot;cl&quot;が共通する subsequence です．</p>
+<p>ちなみに，</p>
+<ul>
+<li>&quot;aabbaabbaabbaabbaabbaabbaabbaabbaabbaabbaabb&quot;</li>
+<li>&quot;abababababababababababababababababababab&quot;</li>
+<li>&quot;aaaabbbbaaaabbbbaaaabbbbaaaabbbbaaaabbbb&quot;</li>
+</ul>
+<p>なら，答えは，1725660 です．</p>
+<p>30 分ほど考えたんですが，できませんでした． SRM 後に書いてみました.</p>
+<pre><code class="language-java prettyprint">public class CountingCommonSubsequences {
+  char[] s1;
+  char[] s2;
+  char[] s3;
+  int N = 50;
+  long[][][] memo = new long[N][N][N];
+  public long countCommonSubsequences(String a, String b, String c) {
+      this.s1 = a.toCharArray();
+      this.s2 = b.toCharArray();
+      this.s3 = c.toCharArray();
+      for (int i = 0; i &lt; N; i++) {
+          for (int j = 0; j &lt; N; j++) {
+              Arrays.fill(memo[i][j], -1);
+          }
+      }
+      return count(0, 0, 0);
+  }
+
+  long count(int n1, int n2, int n3) {
+      if (n1 &gt;= s1.length || n2 &gt;= s2.length || n3 &gt;= s3.length) return 0;
+      if (memo[n1][n2][n3] != -1) return memo[n1][n2][n3];
+
+      long res = 0;
+
+      nextchar:
+      for (char c = 'a'; c &lt;= 'z'; c++) {
+          for (int i = n1; i &lt; s1.length; i++) if (s1[i] == c) {
+              for (int j = n2; j &lt; s2.length; j++) if (s2[j] == c) {
+                  for (int k = n3; k &lt; s3.length; k++) if (s3[k] == c) {
+                      res += 1 + count(i+1, j+1, k+1);
+                      continue nextchar;
+                  }
+              }
+          }
+      }
+      return memo[n1][n2][n3] = res;
+  }
+</code></pre>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=9819&amp;rm=248284">Room Statistics</a>
+)</p>
+<p><img src="http://static.flickr.com/44/127863126_219dc42588_o.png" alt="Room Statistics" /></p>
+<p>今日は，だめだめでしたね．． レーティングは，1789-&gt;1775 とやや低下．</p>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

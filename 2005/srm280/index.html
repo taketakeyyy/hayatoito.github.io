@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM280 - Challenge祭り — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM280 - Challenge祭り — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM280 - Challenge祭り
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2005-12-30">
+        2005-12-30
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=8077">SRM280</a> に挑戦．今年，最後の SRM になります．思えば今年の後半は，TopCoder で楽しませてもらいました．いまや，2 週間に一度ほどの「趣味」です．</p>
+<h1 id="completingbrackets-code"><a class="self-link" href="#completingbrackets-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5977&amp;rd=8077">CompletingBrackets</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=247258&amp;rd=8077&amp;pm=5977&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題． &quot; <code>]][][]][</code> &quot;のように閉じ括弧・開き括弧のみを含んだ文字列が与えられます．この文字列の最初・または最後に，できるだけ最小限の&quot; <code>]</code> &quot;または &quot; <code>[</code> &quot;
+を与えて，ちょうど括弧が対応するように文字列を完成させその文字列を返す問題です．例の場合は， 最初に &quot; <code>[</code> &quot;を 3 個，最後に&quot; <code>]</code> &quot;を 1 個加えた，&quot; <code>[[[]][][]][]</code>
+&quot;が正解になります．</p>
+<p>これまでは 250 点問題は，何も考えずにただ実装ということが多かったいのですが，今回は一瞬，どうしたらよいかわかりませんでした．「まずい」と思いましたが，力任せに「うまくいくであろう」方法でなんとか仕上げました．はっきりいって根拠なしでしたが，手元で試した限りでは，あらゆるケースで問題がなかったので，そのまま Submit しました．</p>
+<h1 id="gridcut-code"><a class="self-link" href="#gridcut-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5936&amp;rd=8077">GridCut</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=247258&amp;rd=8077&amp;pm=5936&amp;cr=15632820">code</a>)</a></h1>
+<p>500 点問題． 幅 (width) cm x 高さ (height) cm の紙 があります．紙には，方眼紙のように 1cm 間隔で格子状に線が引いてあるとします．この紙をはさみを使って，n セルだけ面積を残して切り取りたいとします．最低，何 cm はさみで紙を切る必要があるでしょうか？という問題です．はさみは格子状の線に沿ってしか使用できません．ななめにきってはだめです．</p>
+<p><img src="http://static.flickr.com/61/193898525_7f130a569d_o.png" alt="SRM280 GridCut From TopCoder" /></p>
+<p>図のような，5 x 10 の紙の場合，</p>
+<ul>
+<li>10 セルだけ残すときは，左の赤のラインが最小の長さです．答えは 5</li>
+<li>18 セルだけ残すときは，左の緑のラインが最小の長さです．答えは 6</li>
+</ul>
+<p>アルゴリズムの知識というよりは，論理的思考力を問われる問題です．いわゆる小学生でもその気になれば解ける問題です．散々，悩んだあげく，とりあえず提出しました．</p>
+<p>．．ですが，Level 3 問題があまりに手がでなかったのであきらめて，Level2 問題を見直していたところ，バグにきずいて，再提出しました．再提出するとポイントは 30%のペナルティが与えられます．</p>
+<p>「n」 セル残す というのは，「 width * height - n 」セル残すということと同じことなんですね．．．それをまったく考慮していなかったため，それに対応させました．</p>
+<h1 id="drawplanar"><a class="self-link" href="#drawplanar"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4846&amp;rd=8077">DrawPlanar</a></a></h1>
+<p>1100 点問題．いつもの「1000 点」じゃなくて，「1100 点」ってだけで，もう恐ろしさ満点です．まったくお手上げでした． さすがに，正解できた人は，Division1 304 人中
+3 人だけでした．
+(<a href="http://www.topcoder.com/tc?module=ProblemDetail&amp;rd=8077&amp;pm=4846">Problem Detail</a>)</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>今回は，チャレンジタイムでは，GridCut の問題で，(100, 100, 9001) という入力でチャレンジしまくりました．自分がミスっていたところは，きっと他人もミスっているに違いないと勝手に思い込んで．手当たり次第，チャレンジして，12 チャレンジ，8 個撃墜しました．</p>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=8077&amp;rm=247258">Room Statistics</a>
+)</p>
+<p><img src="http://static.flickr.com/38/79387792_0bafbb2977_o.png" alt="Room Statistics" /></p>
+<p>チャレンジしまくった結果です．自分も同じ問題を，チャレンジされ撃墜されたというオチまでついています． square * (square-1) のケースを考慮していませんでした．．</p>
+<p><img src="http://static.flickr.com/43/79387801_8040696132_o.png" alt="Challeges" /></p>
+<p>レーティングは 1520 -&gt; 1630 と上昇しました．</p>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

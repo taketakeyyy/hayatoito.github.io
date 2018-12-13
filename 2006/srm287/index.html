@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM287 - 気分は中学生？連立２元方程式 — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM287 - 気分は中学生？連立２元方程式 — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM287 - 気分は中学生？連立２元方程式
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2006-02-05">
+        2006-02-05
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=9808">SRM287</a> に挑戦． 1 ヶ月ぶりの参戦．</p>
+<h1 id="twoequations-code"><a class="self-link" href="#twoequations-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=6013&amp;rd=9808">TwoEquations</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=247545&amp;rd=9808&amp;pm=6013&amp;cr=15632820">code</a>)</a></h1>
+<p>300 点問題．以下のような 2 つの文字列が与えられます．</p>
+<pre><code>&quot;1*X + 2*Y = 6&quot;
+&quot;1*X + (-4)*Y = (-3)&quot;
+</code></pre>
+<p>連立 2 元方程式です．「中学生か俺は？」でした．．これを解いて，解が唯一存在するならば，以下のように解を文字列で</p>
+<pre><code>&quot;X=(-7)/3 Y=3/4&quot;
+</code></pre>
+<p>解がないならば</p>
+<pre><code>&quot;NO SOLUTIONS&quot;
+</code></pre>
+<p>を，解が複数存在するならば</p>
+<pre><code>&quot;MULTIPLE SOLUTIONS&quot;
+</code></pre>
+<p>を返しなさい．という問題です. 250 点問題ではなく 300 点問題ですのでちょっと面倒です．ですがそれほど難しい問題ではないと一見思ったのですが．．</p>
+<p>方針としては，各係数 A1-A3, B1-B3</p>
+<pre><code>A1 * X + A2 * Y = A3
+B1 * X + B2 * Y = B3
+</code></pre>
+<p>をパースしてから，</p>
+<pre><code class="language-java prettyprint">int det = A1 * B2 - A2 * B1;
+int x = B2 * A3 - A2 * B3;
+int y = A1 * B3 - B1 * A3;
+</code></pre>
+<p>を計算して，det == 0 ならば，「解がない」 か 「解が複数」</p>
+<pre><code class="language-java prettyprint">if (det == 0) {
+    if (x == 0) {
+        return &quot;MULTIPLE SOLUTIONS&quot;;
+    }
+    return &quot;NO SOLUTIONS&quot;;
+}
+</code></pre>
+<p>それ以外ならば， 「解がひとつ」ということで，</p>
+<pre><code class="language-java prettyprint">&quot;X=x/det Y=y/det&quot;
+</code></pre>
+<p>として，約分等・正しくフォーマットして返せばよい．これでいけると思って Submit したのですが，甘かったです．</p>
+<p>これだけでは，以下のような係数がゼロの場合に対処できませんでした．</p>
+<pre><code>&quot;0*X + 0*Y = 1&quot;
+&quot;0*X + 0*Y = 2&quot;
+</code></pre>
+<p>この場合は，正しい正解は&quot;NO SOLUTIONS&quot;ですが，上記ロジックだけだと&quot;MULTIPLE
+SOLUTIONS&quot;を返してしまいます．</p>
+<p>以下のように係数ゼロを特別に扱う必要性がありました．</p>
+<pre><code class="language-java prettyprint">if (A1 == 0 &amp;&amp; A2 == 0 &amp;&amp; A3 != 0) return &quot;NO SOLUTIONS&quot;;
+if (B1 == 0 &amp;&amp; B2 == 0 &amp;&amp; B3 != 0) return &quot;NO SOLUTIONS&quot;;
+if (A1 == 0 &amp;&amp; B1 == 0 &amp;&amp; (A2 * B3 - B2 * A3) != 0) return &quot;NO SOLUTIONS&quot;;
+if (A2 == 0 &amp;&amp; B2 == 0 &amp;&amp; (A1 * B3 - B1 * A3) != 0) return &quot;NO SOLUTIONS&quot;;
+</code></pre>
+<p>私も含めて多くの人はゼロのケースを考慮しない Code を書いてしまったようです．これに気づいた人は，チャレンジタイムで大稼ぎしていました．</p>
+<p>この問題の Division1 での正解率は 11%，同じ問題が Division2 のレベル 2 問題にも使用されていましたが Division2 ではなんと正解率 0%，誰ひとり正解できなかったようです．．</p>
+<p><img src="http://static.flickr.com/25/95611480_5e4542f8c0_o.png" alt="Problem Stats" /></p>
+<h1 id="mooreslaw-code"><a class="self-link" href="#mooreslaw-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5973&amp;rd=9808">MooresLaw</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=247545&amp;rd=9808&amp;pm=5973&amp;cr=15632820">code</a>)</a></h1>
+<p>450 点問題．</p>
+<blockquote>
+<p>「ムーアの法則」: コンピュータのスピードは，18 ヶ月で 2 倍になる</p>
+</blockquote>
+<p>今，計算を始めると 14 年かかる問題があるとします．今すぐ始めるのではなく，18 ヶ月待ってスピードが 2 倍の新しいコンピュータを買ってそれで計算を始めると 7 年ですみます． 14 年かかる計算が，合計 (1.5 + 7 = ) 8.5 年ですむわけです．この例だと，約 4 年まってから計算を始めるのがベストです．合計( 4 + 2.2 = ) 6.2 年ですみます.</p>
+<p>このように，計算にかかる年数 (years) が与えられた場合，ムーアの法則が成り立つとすると，最短・今から何年後に計算を終わらせることができるでしょうか？という問題です．いつ新しいコンピュータを買い計算をはじめるか？がポイントになります．</p>
+<p>x 年後に，新しいコンピュータを買って計算を始めるとすると，トータルでは</p>
+<blockquote>
+<p>y = x + (years / 2^(x / 1.5) )</p>
+</blockquote>
+<p>かかることになります．この y が最小になる x を探せばよいことになります．数学的に解くことはできるのでしょうが（微分してゼロになるところを求める）．．数学的に悩むよりは，このような U 字型の関数の場合は， いわゆる binary search ではなく，ternary search で，y が最小になる x を探すことができます．</p>
+<p><img src="http://static.flickr.com/38/95712324_5b626917dd_o.png" alt="ternary search" /></p>
+<p>区間 ( [left, right] ) 内の 2 点(x1, x2)をとり，y1, y2 を計算して，</p>
+<ul>
+<li>y1 &gt; y2 ならば，left = x1</li>
+<li>y1 &lt; y2 ならば，right = x2</li>
+</ul>
+<p>として，区間を狭めていけば，最終的には，最小の y をとる xa にたどり着きます.</p>
+<pre><code class="language-java prettyprint">public class MooresLaw {
+
+  public double shortestComputationTime(int years) {
+
+      double left = 0;
+      double right = years;
+
+      while (right - left &gt; 1e-11) {
+          double x1 = (left * 2 + right) / 3.0;
+          double x2 = (left + right * 2) / 3.0;
+          if (cal(x1, years) &gt; cal(x2, years)) {
+              left = x1;
+          } else {
+              right = x2;
+          }
+      }
+      return cal(right, years);
+  }
+
+  double cal(double x, int years) {
+      return x + years / Math.pow(2, x / 1.5);
+  }
+</code></pre>
+<p>SRM 中は，x 年後のコンピュータのスピードが，Math.pow(2, x / 1.5) で表せることにきずかず，前半部分・回りくどいことをしていまいました．．．なんとか正解しましたが．</p>
+<h1 id="coingame"><a class="self-link" href="#coingame"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=6005&amp;rd=9808">CoinGame</a></a></h1>
+<p>1000 点問題． Open したものの，手が出ず．．</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=9808&amp;rm=247545">Room Statistics</a>
+)</p>
+<p><img src="http://static.flickr.com/41/95603073_48fb4a2290_o.png" alt="Room Statistics" /></p>
+<p>全体的にポイントが低かったためか，レーティングは 1542 -&gt; 1626 と上昇しました．</p>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

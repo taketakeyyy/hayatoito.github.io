@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Imperative Shadow DOM Distribution API — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="Imperative Shadow DOM Distribution API — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      Imperative Shadow DOM Distribution API
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2018-03-08">
+        2018-03-08
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p>The straw-man proposal for Imperative Shadow DOM distribution API. The context
+is:
+<a href="https://github.com/whatwg/html/issues/3534">https://github.com/whatwg/html/issues/3534</a></p>
+<p>[Update] This proposal was posted
+<a href="https://github.com/w3c/webcomponents/blob/gh-pages/proposals/Imperative-Shadow-DOM-Distribution-API.md">here</a>.</p>
+<h1 id="declarative-api-and-imperative-api-should-be-exclusively-used-in-each-shadow-tree"><a class="self-link" href="#declarative-api-and-imperative-api-should-be-exclusively-used-in-each-shadow-tree">Declarative API and Imperative API should be exclusively used in each shadow tree</a></h1>
+<p>Mixing declarative API and imperative API would be troublesome and can be the
+cause of confusions for web developers. We <em>can</em> invent complex rules, however,
+no one wants to remember complex rules. Also, supporting both in the same shadow
+tree would make a browser engine complex, which I don't want.</p>
+<p>Thus, we don't allow mixing declarative API and imperative API in the same
+shadow tree. Web developers have to show their <em>opt-in</em> to use imperative API
+for each shadow tree.</p>
+<p>A shadow root has an associated <em>slotting</em>. Web developers can set shadow root's
+<em>slotting</em> to <em>manual</em> by specifying it in attachShadow:</p>
+<pre><code class="language-js prettyprint">const sr = attachShadow({ mode: ..., (optional) slotting: 'manual' })
+</code></pre>
+<p>The <em>manual</em> means &quot;we support only imperative APIs for the shadow tree&quot;. The
+default is &quot;we support only declarative API for the shadow tree&quot;.</p>
+<h1 id="imperative-slotting-api"><a class="self-link" href="#imperative-slotting-api">Imperative Slotting API</a></h1>
+<p>In addition to <a href="https://dom.spec.whatwg.org/#slot-assigned-nodes">assigned nodes</a>, which is already defined in DOM Standard, a
+slot has an associated <em>manually-assigned-nodes</em> (ordered list). Unless stated
+otherwise, it is empty.</p>
+<p>A slot gets new API, called <em>assign</em> (tentative name).</p>
+<p>Basically, <code>slot.assign(sequence&lt;Node&gt; nodes)</code> sets the slot's
+<em>manually-assigned-nodes</em> to <em>nodes</em>. See the later section for details.</p>
+<p><em>manually-assigned-nodes</em> is an internal field. It is write-only. Users cannot
+read the value directly.</p>
+<h1 id="changes-to-html-standard"><a class="self-link" href="#changes-to-html-standard">Changes to HTML Standard</a></h1>
+<h2 id="htmlsltoelement"><a class="self-link" href="#htmlsltoelement">HTMLSltoElement</a></h2>
+<pre><code class="language-webidl prettyprint">partial interface HTMLSlotElement {
+  ...
+  void assign(sequence&lt;Node&gt; nodes)
+}
+</code></pre>
+<p><code>slot.assign(sequence&lt;Node&gt; nodes)</code> runs the following steps:</p>
+<ol>
+<li>Set the slot's <em>manually-assigned-nodes</em> to <em>nodes</em>.</li>
+<li>Run <a href="https://dom.spec.whatwg.org/#assign-slotables-for-a-tree">assign slotables for a tree</a> with slot’s tree.</li>
+</ol>
+<p>step 2 is required because we have to re-calculate <a href="https://dom.spec.whatwg.org/#slot-assigned-nodes">assigned nodes</a> of every
+slots in the tree at this timing.</p>
+<p>Note: The detail is explained later, however, it would be worth noting that
+<em>manually-assigned-nodes</em> is not used as <a href="https://dom.spec.whatwg.org/#slot-assigned-nodes">assigned nodes</a> as is. You can think
+that <code>slot.assign(sequence&lt;Node&gt; nodes)</code> tell the engine <em>candidate nodes</em> from
+where <a href="https://dom.spec.whatwg.org/#slot-assigned-nodes">assigned nodes</a> are constructed.</p>
+<h1 id="changes-to-dom-standard"><a class="self-link" href="#changes-to-dom-standard">Changes to DOM Standard</a></h1>
+<h2 id="shadowrootinit"><a class="self-link" href="#shadowrootinit">ShadowRootInit</a></h2>
+<pre><code class="language-webidl prettyprint">ShadowRootInit {
+   ...
+   (optional) sloting: 'manual'|'auto' //  (if omitted, it is 'auto');
+}
+</code></pre>
+<h2 id="4-2-2-3-finding-slots-and-slotables"><a class="self-link" href="#4-2-2-3-finding-slots-and-slotables">4.2.2.3. Finding slots and slotables</a></h2>
+<p><a href="https://dom.spec.whatwg.org/#find-a-slot">To find a slot</a> need to be updated. Other steps don't need to be updated from
+the standard's perspective, I think, thanks to well-factored each steps.</p>
+<p><a href="https://dom.spec.whatwg.org/#find-a-slot">To find a slot</a> for a given slotable <em>slotable</em> and an optional open flag
+(unset unless stated otherwise), run these steps:</p>
+<ol>
+<li>
+<p>If slotable’s parent is null, then return null.</p>
+</li>
+<li>
+<p>Let shadow be slotable’s parent’s shadow root.</p>
+</li>
+<li>
+<p>If shadow is null, then return null.</p>
+</li>
+<li>
+<p>If the open flag is set and shadow’s mode is not &quot;open&quot;, then return null.</p>
+</li>
+<li>
+<p>[New Step] If shadow's <em>slotting</em> is <em>manual</em>, return the first slot in
+shadow’s tree whose <em>manually-assigned-nodes</em> includes slotable, if any, and
+null otherwise.</p>
+</li>
+<li>
+<p>Otherwise, return the first slot in shadow’s tree whose name is slotable’s
+name, if any, and null otherwise. (&lt;= No change)</p>
+</li>
+</ol>
+<p>Note: This change implies:</p>
+<ul>
+<li>
+<p><em>manually-assigned-nodes</em> is used only when a slot is in a shadow tree whose
+<em>slotting</em> is <em>manual</em>.</p>
+</li>
+<li>
+<p><em>manually-assigned-nodes</em> is not used when a slot is in a shadow tree whose
+<em>slotting</em> is <em>auto</em>.</p>
+<p>Web developers can call <code>slot.assign(...)</code> for such a slot, however, it is a
+sort of <em>no-op</em>, at least until the slot is moved to another shadow tree with
+'manual', where <em>manually-assigned-nodes</em> might have a meaning (but it is
+unlikely).</p>
+</li>
+<li>
+<p>If the same node is set to <em>manually-assigned-nodes</em> of more than one slots,
+the first slot in tree-order takes that node. The slot's location in the tree
+matters, as declarative API does so.</p>
+</li>
+</ul>
+<h1 id="examples"><a class="self-link" href="#examples">Examples</a></h1>
+<h2 id="example-1-how-imperative-slotting-api-works-in-slotting-manual"><a class="self-link" href="#example-1-how-imperative-slotting-api-works-in-slotting-manual">Example 1: How imperative slotting API works in slotting=manual.</a></h2>
+<pre><code class="language-text prettyprint">host
+├──/shadowroot (slotting=manual)
+│   ├── slot1
+│   └── slot2
+├── A
+└── B
+</code></pre>
+<pre><code class="language-javascript prettyprint">// '==' means ArrayEquals.
+assert(slot1.assignedNodes() == []);
+assert(slot2.assignedNodes() == []);
+
+slot2.assign([A]);
+
+assert(slot2.assignedNodes() == [A]);
+
+slot2.assign([B, A]); // The order doesn't matter.
+
+assert(slot2.assignedNodes() == [A, B]);
+
+slot1.assign(A);
+
+assert(slot1.assignedNodes() == [A]);
+assert(slot2.assignedNodes() == [B]);
+
+slot1.assign([A, A, A, host]); // We don't throw an exepction here.
+
+assert(slot1.assignedNodes() == [A]);
+assert(slot2.assignedNodes() == [B]);
+
+slot1.assign([]);
+
+assert(slot1.assignedNodes() == []);
+assert(slot2.assignedNodes() == [A, B]);
+
+slot2.assign([]);
+
+assert(slot1.assignedNodes() == []);
+assert(slot2.assignedNodes() == []);
+</code></pre>
+<h2 id="example-1-imperative-slotting-api-doesn-t-have-any-effect-in-a-shadow-root-with-slotting-auto"><a class="self-link" href="#example-1-imperative-slotting-api-doesn-t-have-any-effect-in-a-shadow-root-with-slotting-auto">Example 1: Imperative slotting API doesn't have any effect in a shadow root with slotting=auto.</a></h2>
+<pre><code class="language-text prettyprint">host
+├──/shadowroot (slotting=auto) (default)
+│   ├── slot1 name=slot1
+│   └── slot2 name=slot2
+├── A slot=slot1
+└── B slot=slot2
+</code></pre>
+<pre><code class="language-javascript prettyprint">assert(slot1.assignedNodes() == [A]);
+assert(slot2.assignedNodes() == [B]);
+
+slot1.assign([A, B]); // This doesn't have any effect because this shadow tree's slotting is auto
+
+assert(slot1.assignedNodes() == [A]);
+assert(slot2.assignedNodes() == [B]);
+</code></pre>
+<h1 id="open-questions"><a class="self-link" href="#open-questions">Open Questions</a></h1>
+<ul>
+<li>
+<p>Should we reset <em>manually-assigned-nodes</em> at some timings? e.g. when a slot is
+connected / or disconnected.</p>
+<p>The current proposal never resets <em>manually-assigned-nodes</em>. This rule is easy
+to remember. That would cover the most use cases, I think.</p>
+</li>
+<li>
+<p>Using <code>sequence&lt;Node&gt;</code> would be a right choice in slot.assign, given that the
+order doesn't matter?</p>
+<p>If WebIDL has a better type, like <code>Set&lt;Node&gt;</code>, we should use it.</p>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

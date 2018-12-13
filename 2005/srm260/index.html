@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM260 - TopCoderへの挑戦のはじまり — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM260 - TopCoderへの挑戦のはじまり — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM260 - TopCoderへの挑戦のはじまり
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2005-08-28">
+        2005-08-28
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/">TopCoder</a> とは，世界中のトッププログラマが集まり，プログラミングスキルを競いあっているサイトです．毎週のようにオンラインでプログラミングコンテストが行われています．面白そうなので参加してみました．
+<a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=7994">SRM260</a> に挑戦です．SRM
+とは Single Round Match のことです．定期的に（週に 1 回ほど）開催されています．</p>
+<p>先日開催された Google Code Jam 2005 でこのサイトを知った人が多いのかいつもより参加者が多いらしく（私もその一人），驚いている様子が伺えます(800 名オーバー)．</p>
+<p><img src="http://static.flickr.com/26/38216141_06b79260a9_o.png" alt="Chat Area" /></p>
+<p>レーティングが 1200 以上の人は Division1，それ以下の人は Division2 になります．
+Division1 の方が問題が比較的易しくなっています．初参加の自分は，Devision2．</p>
+<p>簡単に SRM の流れをおさらいしておくと</p>
+<ul>
+<li>開始時間の 5 分前までに Registration を行う</li>
+<li>参加者は約 20 名づつ，Room にアサインされる</li>
+<li>問題は 3 問．制限時間は 75 分．言語は Java, C++, C#, VB から選択できます．</li>
+<li>5 分休憩</li>
+<li>15 分のチャレンジタイム．この時間では，同じルームの参加者が提出したコードを見ることができます．バグを発見し「チャレンジ」に成功すると 50 ポイントもらえます．</li>
+</ul>
+<p>ということです．この 4 つから選ぶなら(無難に?)Java でいきます．以下のような問題が出題されました．(code) は私が提出したコードです．</p>
+<h1 id="isingmodel-code"><a class="self-link" href="#isingmodel-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4746&amp;rd=7994">IsingModel</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=203409&amp;rd=7994&amp;pm=4746&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題．特に難しいところはないです．軽くこなしたいところ．</p>
+<h1 id="gridpointsoncircle-code"><a class="self-link" href="#gridpointsoncircle-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4766&amp;rd=7994">GridPointsOnCircle</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=203409&amp;rd=7994&amp;pm=4766&amp;cr=15632820">code</a>)</a></h1>
+<p>500 点問題．中心(0,0)，半径 r の円上に座標が(整数, 整数)の形式を満たす点はいくつ存在する？って問題です． ちょっと，なやむ．単に (x, y) ( 0 &lt;= x, y &lt;= r)
+を全部調べていたらタイムオーバするってのが目に見えてるので，なんらかのちょっとした工夫が必要．</p>
+<h1 id="rollingblock-code"><a class="self-link" href="#rollingblock-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4749&amp;rd=7994">RollingBlock</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=203409&amp;rd=7994&amp;pm=4749&amp;cr=15632820">code</a>)</a></h1>
+<p>1000 点問題. サイズが rows x cols の盤上を 1 x 1 x 3 のブロックがごろんごろんと動くとき，ある地点からゴールの地点まで最短，何 Move で到達できるか？という問題です．条件として，</p>
+<blockquote>
+<p>rows and cols will be between 1 and 100, inclusive.</p>
+</blockquote>
+<p>とあるので，状態空間はたかだか 100 x 100 x 3 くらいです． BFS (Breadth First
+Search) で問題ない（はず）．不正な状態（盤からはみだす)をちゃんとチェックしてやれば，なんとかなるか．．</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>制限時間つきでコーディングするなんていう経験が普段ないもんだから，あせるあせる．で，なんとか 3 問とも Submit しました．問題を Open してから，Submit するまでの時間が早ければ早いほどポイントが高くなります．</p>
+<p><img src="http://static.flickr.com/30/38216143_7153b1a67d_m.jpg" alt="SUBMIT_RESULT" />__</p>
+<p>75 分のコーディングタイムが終了すると，5 分の休憩があります．その後，15 分間の
+Challenge Time が始まりました．</p>
+<p>自分の 500 点コードが撃墜された瞬間．．</p>
+<p><img src="http://static.flickr.com/25/38216144_aa73121e35_m.jpg" alt="CHALLENGE" />__</p>
+<p>Challenge で使用されたパラメータ(円の半径)は入力条件の最大値である 2000000000 です．その結果は</p>
+<blockquote>
+<p>&quot;The code execution time exceeded the 2 second time limit.&quot;</p>
+</blockquote>
+<p>2 秒以上実行時間がかかるのは認められないってことですね．．なるほど．．このように，あらかじめ，必要な上限のみに制限しておけば 2 秒以内だったか．．</p>
+<pre><code class="language-java prettyprint">long r = (long) Math.sqrt(rSquare) + 1;
+long y = r;
+for (long x = 0; x &lt; r; x++) {
+</code></pre>
+<p>自分もどきどきしながらひとつ Challenge してみました．結果は成功(+50 点)．</p>
+<p>Challenge Time が終わると，ひとまず終了です．全員の Submit されたコードに対して
+System Test が走ります． System Test に落ちると，どんなに早くその問題を Submit
+していてもゼロ点です．</p>
+<p>System Test の結果です． (
+<a href="http://static.flickr.com/30/38216143_7153b1a67d_o.png">Room Statistics</a> )</p>
+<p><img src="http://static.flickr.com/40/74680799_df314e57a5_o.png" alt="Room Statistics" /></p>
+<p>250 点問題と 1000 点問題は無事 System Test に通りました． 1000 点問題は 2 回チャレンジをうけています．そんなに「間違えてる」ふうに見えたのかなー．</p>
+<p>レーティングはこうなりました．</p>
+<p><img src="http://static.flickr.com/29/38216145_fde67a1953_o.png" alt="Rating" /></p>
+<h1 id="a-1"><a class="self-link" href="#a-1">今日の教訓</a></h1>
+<ul>
+<li>2 秒以内という時間制限を忘れないように</li>
+<li>いちばん時間がかかるケースをちゃんと考慮しておくように</li>
+</ul>
+<p>なかなか普段は味わえない緊張感があって，面白かったです. レーティングシステムというのがいいですね．また挑戦してみたいです．</p>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

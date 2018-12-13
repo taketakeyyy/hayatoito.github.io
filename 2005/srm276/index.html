@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM276 - お買い物は楽しくDPで — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM276 - お買い物は楽しくDPで — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM276 - お買い物は楽しくDPで
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2005-12-09">
+        2005-12-09
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=8073">SRM276</a> に挑戦．かなーり，眠かったので，スルーしようかと思ったのですが，挑戦しました．</p>
+<h1 id="volumediscount-code"><a class="self-link" href="#volumediscount-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5945&amp;rd=8073">VolumeDiscount</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=246939&amp;rd=8073&amp;pm=5945&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題． お買い物です．たとえば，</p>
+<ul>
+<li>1 個なら 4$</li>
+<li>3 個まとめて買うと 10$</li>
+<li>20 個まとめて買うと 48$</li>
+</ul>
+<p>だったとします．50 個，買いたいとします．最低何$ですむか？という問題です. この例だと</p>
+<blockquote>
+<p>20 個 x 2 + 3 個 x 3 + 1 個 x 1= 50 個 (48$ x 2 + 10$ x 3 + 4$ x 1 = 130$)</p>
+</blockquote>
+<p>がベストな買い方で，答えは 130 です．しかし，50 個ではなく，55 個買いたいとすると，ベストな買い方は</p>
+<blockquote>
+<p>20 個 x 2 + 3 個 x 5 = 55 個 (48$ x 2 + 10$ x 5 = 146$)</p>
+</blockquote>
+<p>ではなく</p>
+<blockquote>
+<p>20 個 x 3 = 60 個 ( 48$ x 3 = 144$)</p>
+</blockquote>
+<p>です．答えは，144 になります． SRM 中は，入力条件が緩いので Brute-Force で十分いけると思って Submit しました．チャレンジタイムでは，Memoization なしの
+Brute-Force ではタイムアウトすると思われたのか, 2 回チャレンジをうけました．チャレンジで使用された入力は</p>
+<p><img src="http://static.flickr.com/39/74265649_2eb414d63b_o.png" alt="SRM276 Challenge" /></p>
+<p>と明らかに 2 秒タイムオーバー狙いです．チャレンジタイム後に，チャレンジしてきた人に質問されました． 2 秒以内に終わったのが，信じられなかったようです.</p>
+<p><img src="http://static.flickr.com/36/74263840_738db61dae_o.png" alt="SRM276 Chat" /></p>
+<p>その後, HiltonLange さんには，さらに</p>
+<blockquote>
+<p>{&quot;51 1&quot;,&quot;1 99&quot;}, 99 だと，失敗するんじゃない？</p>
+</blockquote>
+<p>と指摘されました．そのとおりです．この入力だと 51 個 x2=101 個，2 ドルが正解ですが，Submit した Code では</p>
+<pre><code class="language-java prettyprint">for (int i = 0; q + i * unit[n] &lt; 100; i++) {
+</code></pre>
+<p>このように上限を 100 にしていたため，51 x 1 + 99 * 48 = 4803 ドルを出力していまいます． 上限は，最低 200 じゃないと．System Test に落ちますね．．．</p>
+<pre><code class="language-java prettyprint">for (int i = 0; q + i * unit[n] &lt; 200; i++) {
+</code></pre>
+<p>このように上限 200 にしておくと，2 秒近くかかりますが，なんとか System Test に通っていました．それでも無駄だらけなので，無駄をなくすと共に，Memoization を併用すれば，劇的に早くなります．以下のようになります．</p>
+<pre><code class="language-java prettyprint">int go(int q, int n) {
+   if (n == N) {
+       if (q &lt; quantity) return 1000000;
+       return 0;
+   }
+   if (cache[q][n] != 0) return cache[q][n];
+   int min = Integer.MAX_VALUE;
+   for (int i = 0;; i++) {
+       min = Math.min(min, cost[n] * i + go(q + unit[n] * i, n+1));
+       if (q + i * unit[n] &gt;= quantity) break;
+   }
+   return cache[q][n] = min;
+}
+</code></pre>
+<p>この手の問題は，やはり DP(Dynamic Programming)を使うのが常套手段でしたね． SRM
+後に書いてみました.</p>
+<pre><code class="language-java prettyprint">public int bestDeal(String[] priceList, int quantity) {
+    int N = priceList.length;
+    int[] unit = new int[N];
+    int[] cost = new int[N];
+    for (int i = 0; i &lt; N; i++) {
+        unit[i] = Integer.parseInt(priceList[i].split(&quot; &quot;)[0]);
+        cost[i] = Integer.parseInt(priceList[i].split(&quot; &quot;)[1]);
+    }
+
+    int[] best = new int[300];
+    Arrays.fill(best, Integer.MAX_VALUE);
+    best[0] = 0;
+    for (int i = 0; i &lt; N; i++) {
+        for (int j = 0; j &lt; quantity; j++) {
+            if (best[j] != Integer.MAX_VALUE) {
+                if (best[j] + cost[i] &lt; best[j + unit[i]]) {
+                    best[j+unit[i]] = best[j] + cost[i];
+                }
+            }
+        }
+    }
+
+    int min = Integer.MAX_VALUE;
+    for (int i = quantity; i &lt; quantity + 100; i++) {
+        min = Math.min(min, best[i]);
+    }
+    return min;
+}
+</code></pre>
+<p>ほとんどの人は，さくっと躊躇することなく DP を使用していました．さすが，Division1．</p>
+<h1 id="testingcar"><a class="self-link" href="#testingcar"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4634&amp;rd=8073">TestingCar</a></a></h1>
+<p>500 点問題． レーシングカーの試験走行をします．ただし，時間帯により制限速度の条件がいくつか与えられます.</p>
+<ul>
+<li>[5 秒から 10 秒の間は，10 m/s 以上スピードを出してはいけない ]</li>
+<li>[15 秒から 20 秒の間は，15 m/s 以上スピードを出してはいけない ]</li>
+<li>[30 秒から 40 秒の間は，5 m/s 以上スピードを出してはいけない ]</li>
+</ul>
+<p>というふうにです． 入力として</p>
+<ul>
+<li>レーシングカーの加速度 a (m / s^2 ) (減速度(?) も兼ねています．）</li>
+<li>試験走行の時間 (duratation) が与えられます.</li>
+</ul>
+<p>この条件のもとで，レーシングカーが出せる最高速度はいくつになるかという問題です.
+SRM 中は，途中で方針が間違っていたことことにきずき，お手上げでした．（つぎのつぎの制限速度の変更を考慮していなかったため減速が間に合わない．）</p>
+<h1 id="forcetest"><a class="self-link" href="#forcetest"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5934&amp;rd=8073">ForceTest</a></a></h1>
+<p>1000 点問題． Open しませんでした．</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=8073&amp;rm=246939">Room Statistics</a>
+)</p>
+<p><img src="http://static.flickr.com/9/74683887_7179f797b8_o.png" alt="Room Statistics" /></p>
+<p>レーティングは低下．今日は，敗北感が強いな．．</p>
+<h1 id="a-1"><a class="self-link" href="#a-1">今日の教訓</a></h1>
+<ul>
+<li>DP をちゃんとマスターしておく</li>
+</ul>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>

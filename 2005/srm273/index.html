@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SRM273 - bit演算はintで行われるのね — hayato.io</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:card"  content="summary" />
+    <meta property="twitter:title" content="SRM273 - bit演算はintで行われるのね — hayato.io"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <link rel="author" href="http://www.hatena.ne.jp/hayatoito1/" />
+    <link href="https://hayato.io/site.css" rel="stylesheet">
+    <link id="favicon" href="https://hayato.io/favicon.ico" rel="shortcut icon">
+    <link href="https://hayato.io/feed.xml" rel="alternate"
+          title="hayato.io" type="application/atom+xml">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
+    
+  </head>
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+    
+    <nav class="navbar navbar-expand-sm navbar-light bg-light" style="background-color: #fff !important;">
+      <a class="navbar-brand" href="https://hayato.io/">hayato.io</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="https://hayato.io/archive/">Archive</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        
+        <div class="col">
+        
+          
+<article>
+  <header class="page-header">
+    <h1 id="top" class="site-article-title">
+      
+      SRM273 - bit演算はintで行われるのね
+      
+    </h1>
+    
+    
+    <div class="text-right">
+      <time datetime="2005-11-22">
+        2005-11-22
+      </time>
+    </div>
+    
+    
+  </header>
+  <div class="article-content">
+    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=8070">SRM273</a> に挑戦．はじめて，平日の昼に挑戦です．今までは，日本時間の夜に開催される SRM にしか参加しませんでした．</p>
+<h1 id="fallingcoconuts-code"><a class="self-link" href="#fallingcoconuts-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5895&amp;rd=8070">FallingCoconuts</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=246824&amp;rd=8070&amp;pm=5895&amp;cr=15632820">code</a>)</a></h1>
+<p>250 点問題．ココナッツを上から落としておとしていきます．積みあがった形を返す問題です．テトリスみたいなものですね．番人(Sentinel)というちょっとして Tips を使いました．あらかじめ，一番下の段にココナツを敷き詰めておけば，ココナツが下にはみだすことはありません．一番下までココナツが落ちたときの条件をチェックする必要がなくなります．一番下の段に敷き詰めたココナツば番人がわりになってくれるわけです．今回は，特に Sentinel を使うまでもないですが，ときどきあらかじめ Sentinel を用意しておけば，条件チェックが非常に楽になるケースがあります．</p>
+<h1 id="snaketurbo-code"><a class="self-link" href="#snaketurbo-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5893&amp;rd=8070">SnakeTurbo</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=246824&amp;rd=8070&amp;pm=5893&amp;cr=15632820">code</a>)</a></h1>
+<p>500 点問題．</p>
+<pre><code>o---o-o-S--o--o--------G---o
+</code></pre>
+<p>S が Snake(へび)がいるスタート地点，G がゴール地点です．へびは 1 秒に 1 単位進むことができます． o はパワーアップえさです． o を食べるたびに，へびはスピードが 2
+倍になります．</p>
+<ul>
+<li>2 つ食べれば 4 倍</li>
+<li>3 つ食べれば 8 倍</li>
+<li>4 つ食べれば 16 倍</li>
+</ul>
+<p>というふうに，効果は累積します．へびがスタート地点からゴールするまでの最短時間を求める問題です．</p>
+<p>これも，前回の SRM272 の Level2 問題，RoundTable と同様に，Recursive +
+Memoization で解きました. 自信があったんですけど，System Test に落ちました．うーん，どこがおかしいかしばらく気づきませんでした．．発見してみてください．ここです</p>
+<pre><code class="language-java prettyprint">double boost = 1 &lt;&lt; (right - left);
+</code></pre>
+<p>ここは，現在のへびのスピード，すなわち 2 の (right - left) 乗を求めているところです． 入力の条件は，</p>
+<blockquote>
+<p>orbs will contain between 0 and 50 elements, inclusive.</p>
+</blockquote>
+<p>なので，(right - left) は 32 以上になる可能性があります．右辺のビットシフトは
+int で計算が行われます． int は 32 ビットなので，(right - left) が 32 以上のときは対応できません． 素直に</p>
+<pre><code class="language-java prettyprint">double boost = Math.pow(2, (right - left) );
+</code></pre>
+<p>または</p>
+<pre><code class="language-java prettyprint">double boost = 1L &lt;&lt; (right - left);
+</code></pre>
+<p>と long を使用しておけば，何の問題もなく，System Test に通っていました．残念．</p>
+<h1 id="robotcollision"><a class="self-link" href="#robotcollision"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5878&amp;rd=8070">RobotCollision</a></a></h1>
+<p>900 点問題． 時間たりず．Level3 問題にしては，簡単なほうだったみたいです． 条件を絞れば，Brute-force でいけます．</p>
+<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
+<p>System Test の結果です． (
+<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=8070&amp;rm=246824">Room Statistics</a>
+)</p>
+<p><img src="http://static.flickr.com/39/74683489_f24f748f7c_o.png" alt="Room Statistics" /></p>
+<p>レーティングはちょっとだけ上昇しました．</p>
+
+  </div>
+</article>
+
+
+          
+          <footer class="base-footer text-center">
+            <small>
+              <a href="/">Home</a> | &copy; 2005-2018 hayato.io
+            </small>
+          </footer>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+  </body>
+</html>
