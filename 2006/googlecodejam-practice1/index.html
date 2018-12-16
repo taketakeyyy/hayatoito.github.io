@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SRM293 - ビンゴ — hayato.io</title>
+    <title>Google Code Jam 2006 - Practice1 — hayato.io</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="twitter:card"  content="summary" />
-    <meta property="twitter:title" content="SRM293 - ビンゴ — hayato.io"/>
+    <meta property="twitter:title" content="Google Code Jam 2006 - Practice1 — hayato.io"/>
     
-    <link rel="canonical" href="https://hayato.io/2006/srm293/"/>
+    <link rel="canonical" href="https://hayato.io/2006/googlecodejam-practice1/"/>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
@@ -51,40 +51,50 @@
 <article>
   <header class="page-header">
     <h1 id="top" class="site-article-title">
-      <a href="https://hayato.io/2006/srm293/" class="self-link">
-        SRM293 - ビンゴ
+      <a href="https://hayato.io/2006/googlecodejam-practice1/" class="self-link">
+        Google Code Jam 2006 - Practice1
       </a>
     </h1>
     
     
     <div class="text-right">
-      <time datetime="2006-03-27">
-        2006-03-27
+      <time datetime="2006-08-16">
+        2006-08-16
       </time>
     </div>
     
     
   </header>
   <div class="article-content">
-    <p><a href="http://www.topcoder.com/stat?c=round_overview&amp;rd=9814">SRM293</a> に挑戦．</p>
-<h1 id="scrabblebet-code"><a class="self-link" href="#scrabblebet-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=6116&amp;rd=9814">ScrabbleBet</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=247899&amp;rd=9814&amp;pm=6116&amp;cr=15632820">code</a>)</a></h1>
-<p>300 点問題． 確率計算の問題です．セオリーどおりに組み合わせの数を求めて計算してもよいですし， DP 的に解いてもいいです．</p>
-<h1 id="bingo-code"><a class="self-link" href="#bingo-code"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=4499&amp;rd=9814">Bingo</a> (<a href="http://www.topcoder.com/stat?c=problem_solution&amp;rm=247899&amp;rd=9814&amp;pm=4499&amp;cr=15632820">code</a>)</a></h1>
-<p>450 点問題． いわゆる 5x5 のビンゴのシミュレーションです．アルゴリズム的に悩むところはまったくなく，ただ単に実装にちょっと手間がかかってしまう問題です．参加者の間ではこの手の問題はあまり人気がありません．例のごとく目いっぱい時間がかかってしまいました．．</p>
-<h1 id="circlesofdestruction"><a class="self-link" href="#circlesofdestruction"><a href="http://www.topcoder.com/stat?c=problem_statement&amp;pm=5877&amp;rd=9814">CirclesOfDestruction</a></a></h1>
-<p>1000 点問題． SRM 中はオープンしませんでした． SRM 後に，挑戦してみました．いい問題ですね．．</p>
-<p>問題を解くアイデア自体はすぐに思い浮かびました．「自分のスタート地点」と「円の中心」の垂直 2 等分線がちょうど OK な地域と NG の地域の境目になります．これでゴール地点の候補が絞れるので，条件を満たすゴール地点のうち距離が一番短いものを返せばよいです．</p>
-<p>なんとか自力で解けましたが，やはり時間がかかってしまいました．とても SRM 本番では時間がたらなそうです．</p>
-<h1 id="a"><a class="self-link" href="#a">結果</a></h1>
-<p>System Test の結果です． (
-<a href="http://www.topcoder.com/stat?c=coder_room_stats&amp;cr=15632820&amp;rd=9814&amp;rm=247899">Room Statistics</a>
-)</p>
-<p><img src="http://static.flickr.com/46/119843209_7e198f2c59_o.png" alt="Room Statistics" /></p>
-<p>レーティングは，1730-&gt;1789 と少し上昇しました．</p>
-<h1 id="a-1"><a class="self-link" href="#a-1">今日の教訓</a></h1>
-<ul>
-<li>全体的に時間かけすぎなので，今後上を狙うにはもう少しスピードアップが必要か．．まあでもしばらくは，あまりスピードは意識せずのんびりとやっていきたいと．．</li>
-</ul>
+    <p>Google Code Jam 2006 、練習部屋が用意されていたので早速練習してみました。</p>
+<p>まず、250 点問題。スタート都市(index=0)からゴールの都市(index=1)まで、セールスマンを何人派遣できるでしょうか？という問題です。都市通しのつながり(adj)は、</p>
+<pre><code>&quot;001111&quot;,
+&quot;001111&quot;,
+&quot;110000&quot;,
+&quot;110000&quot;,
+&quot;110000&quot;,
+&quot;110000&quot;
+</code></pre>
+<p>このようにマトリックス形式で与えられます。都市の数は最大 12 です。入力の条件としてスタート都市とゴール都市は、直接つながっていないことが保障されています（adj[0][1] == adj[1][0] == 0 です）。スタート都市とゴールの都市を除いた、途中の通過都市はそれぞれ最大 1 人のセールスマンだけが通過できます。つまりあるセールスマンが通過した都市は、別のセールスマンは通過できません。この入力の場合は、正解は 4 人です([0 -&gt; 2 -&gt; 1], [0 -&gt; 3 -&gt; 1], [0 -&gt; 4
+-&gt; 1], [0 -&gt; 5 -&gt; 1]の 4 通り)。</p>
+<p>いつもは Java ですが、せっかくですので Python で書いてみました。</p>
+<pre><code class="language-python prettyprint">class SalesRouting:
+
+  def howMany(self, adj):
+
+      def doit(u, mask):
+          if (u, mask) in memo: return memo[u,mask]
+          if adj[u][1] == '1': return doit(0, mask) + 1
+          memo[u,mask] = max([0] +
+                             [doit(v, mask | 1&lt;&lt;v) for v in range(2, len(adj))
+                              if adj[u][v] == '1' and (mask &amp; (1&lt;&lt;v)) == 0])
+          return memo[u,mask]
+
+      memo = {}
+      return doit(0, 0)
+</code></pre>
+<p>状態空間は、現在いる city: u(N 通り) と、 これまで通過した city 全て: mask(2^N
+通り)の組み合わせになります。 ワーストケースでもたかだか 12 * 2^12 = 50,000 ほどですので、Python でも十分通ります。</p>
 
   </div>
 </article>
